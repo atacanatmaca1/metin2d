@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metin2D — DragonFable Style RPG</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- CLASS SELECT SCREEN                             -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="classSelect">
+  <!-- Particle canvas -->
+  <canvas id="bgParticles" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;"></canvas>
+
+  <h1>METIN2D</h1>
+  <div class="subtitle">— 2D BROWSER RPG —</div>
+  <div class="cs-divider"></div>
+
+  <div class="name-row">
+    <label>KARAKTER ADI</label>
+    <input id="charName" type="text" placeholder="Adınızı girin" maxlength="16">
+  </div>
+
+  <div class="cs-section-title">Karakter Sınıfları</div>
+
+  <div class="class-grid">
+
+    <!-- SAVAŞÇI -->
+    <div class="class-card" data-class="warrior" onclick="game.startGame('warrior')">
+      <div class="cls-portrait">
+        <svg viewBox="0 0 180 200" xmlns="http://www.w3.org/2000/svg" width="180" height="200">
+          <defs>
+            <radialGradient id="wBg" cx="50%" cy="80%" r="60%"><stop offset="0%" stop-color="#3a1010"/><stop offset="100%" stop-color="#0f0608"/></radialGradient>
+            <radialGradient id="wGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#e74c3c" stop-opacity="0.3"/><stop offset="100%" stop-color="#e74c3c" stop-opacity="0"/></radialGradient>
+          </defs>
+          <rect width="180" height="200" fill="url(#wBg)"/>
+          <ellipse cx="90" cy="180" rx="70" ry="30" fill="url(#wGlow)"/>
+          <!-- Ground shadow -->
+          <ellipse cx="90" cy="188" rx="36" ry="7" fill="rgba(0,0,0,0.5)"/>
+          <!-- Legs -->
+          <rect x="72" y="138" width="16" height="44" rx="6" fill="#2c1a10"/>
+          <rect x="92" y="138" width="16" height="44" rx="6" fill="#2c1a10"/>
+          <!-- Boots -->
+          <rect x="70" y="166" width="20" height="18" rx="4" fill="#1a0f08"/>
+          <rect x="90" y="166" width="20" height="18" rx="4" fill="#1a0f08"/>
+          <!-- Body / armor -->
+          <ellipse cx="90" cy="118" rx="26" ry="28" fill="#8b3a20"/>
+          <ellipse cx="90" cy="110" rx="22" ry="20" fill="#a04530"/>
+          <!-- Armor plates -->
+          <rect x="72" y="102" width="36" height="8" rx="3" fill="#c0392b" opacity="0.8"/>
+          <rect x="76" y="112" width="28" height="6" rx="2" fill="#8b0000" opacity="0.6"/>
+          <!-- Belt -->
+          <rect x="68" y="132" width="44" height="8" rx="3" fill="#5a2a10"/>
+          <rect x="82" y="130" width="16" height="12" rx="2" fill="#8b6914"/>
+          <!-- Left arm -->
+          <ellipse cx="60" cy="118" rx="10" ry="18" fill="#a04530" transform="rotate(-15,60,118)"/>
+          <!-- Right arm (sword arm) -->
+          <ellipse cx="122" cy="112" rx="10" ry="18" fill="#a04530" transform="rotate(20,122,112)"/>
+          <!-- Great sword -->
+          <rect x="134" y="60" width="8" height="90" rx="3" fill="#bdc3c7"/>
+          <rect x="128" y="90" width="20" height="5" rx="2" fill="#c9a84c"/>
+          <polygon points="138,58 130,78 146,78" fill="#ecf0f1"/>
+          <rect x="136" y="78" width="4" height="8" rx="1" fill="#c9a84c"/>
+          <!-- Neck -->
+          <ellipse cx="90" cy="92" rx="10" ry="8" fill="#c8a882"/>
+          <!-- Head -->
+          <ellipse cx="90" cy="74" rx="18" ry="20" fill="#c8a882"/>
+          <!-- Hair — warrior short dark -->
+          <ellipse cx="90" cy="58" rx="18" ry="12" fill="#2c1a10"/>
+          <ellipse cx="76" cy="66" rx="8" ry="10" fill="#2c1a10"/>
+          <ellipse cx="104" cy="66" rx="8" ry="10" fill="#2c1a10"/>
+          <!-- Eyes -->
+          <ellipse cx="83" cy="75" rx="4" ry="3.5" fill="#fff"/>
+          <ellipse cx="97" cy="75" rx="4" ry="3.5" fill="#fff"/>
+          <ellipse cx="84" cy="75" rx="2.5" ry="2.5" fill="#2c1a10"/>
+          <ellipse cx="98" cy="75" rx="2.5" ry="2.5" fill="#2c1a10"/>
+          <!-- Brow -->
+          <path d="M79 70 Q83 68 87 70" stroke="#2c1a10" stroke-width="2" fill="none"/>
+          <path d="M93 70 Q97 68 101 70" stroke="#2c1a10" stroke-width="2" fill="none"/>
+          <!-- Mouth -->
+          <path d="M86 84 Q90 87 94 84" stroke="#8b5a3a" stroke-width="1.5" fill="none"/>
+          <!-- Armor shoulder pads -->
+          <ellipse cx="64" cy="104" rx="12" ry="9" fill="#c0392b"/>
+          <ellipse cx="116" cy="104" rx="12" ry="9" fill="#c0392b"/>
+          <!-- Scar -->
+          <path d="M82 72 L86 80" stroke="#8b4a3a" stroke-width="1" fill="none" opacity="0.7"/>
+          <!-- Red aura glow at feet -->
+          <ellipse cx="90" cy="185" rx="50" ry="14" fill="#e74c3c" opacity="0.12"/>
+        </svg>
+      </div>
+      <div class="cls-name">Savaşçı</div>
+      <div class="cls-desc">Güçlü yakın dövüşçü. Yüksek HP ve savunma ile hayatta kalır.</div>
+      <div class="cls-stat">HP: <span>Yüksek</span> &nbsp; ATK: <span>Orta</span></div>
+    </div>
+
+    <!-- NİNJA -->
+    <div class="class-card" data-class="ninja" onclick="game.startGame('ninja')">
+      <div class="cls-portrait">
+        <svg viewBox="0 0 180 200" xmlns="http://www.w3.org/2000/svg" width="180" height="200">
+          <defs>
+            <radialGradient id="nBg" cx="50%" cy="80%" r="60%"><stop offset="0%" stop-color="#1a0a2e"/><stop offset="100%" stop-color="#080610"/></radialGradient>
+            <radialGradient id="nGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#8e44ad" stop-opacity="0.3"/><stop offset="100%" stop-color="#8e44ad" stop-opacity="0"/></radialGradient>
+          </defs>
+          <rect width="180" height="200" fill="url(#nBg)"/>
+          <ellipse cx="90" cy="180" rx="70" ry="30" fill="url(#nGlow)"/>
+          <ellipse cx="90" cy="188" rx="32" ry="6" fill="rgba(0,0,0,0.5)"/>
+          <!-- Legs -->
+          <rect x="74" y="136" width="14" height="46" rx="5" fill="#1a0a2e"/>
+          <rect x="92" y="136" width="14" height="46" rx="5" fill="#1a0a2e"/>
+          <!-- Boots -->
+          <rect x="72" y="164" width="18" height="20" rx="4" fill="#0f0820"/>
+          <rect x="90" y="164" width="18" height="20" rx="4" fill="#0f0820"/>
+          <!-- Body — lean -->
+          <ellipse cx="90" cy="115" rx="20" ry="26" fill="#1a0a2e"/>
+          <ellipse cx="90" cy="108" rx="17" ry="18" fill="#26104a"/>
+          <!-- Sash / belt -->
+          <rect x="72" y="130" width="36" height="7" rx="3" fill="#8e44ad" opacity="0.8"/>
+          <!-- Left arm -->
+          <ellipse cx="64" cy="115" rx="8" ry="16" fill="#26104a" transform="rotate(-10,64,115)"/>
+          <!-- Right arm — raised with dagger -->
+          <ellipse cx="118" cy="105" rx="8" ry="16" fill="#26104a" transform="rotate(30,118,105)"/>
+          <!-- Daggers -->
+          <rect x="125" y="60" width="5" height="52" rx="2" fill="#c0c0c0"/>
+          <rect x="122" y="84" width="11" height="4" rx="1" fill="#8e44ad"/>
+          <polygon points="127.5,58 123,72 132,72" fill="#e8e8e8"/>
+          <rect x="55" y="100" width="5" height="40" rx="2" fill="#c0c0c0" transform="rotate(-30,57,120)"/>
+          <!-- Neck -->
+          <ellipse cx="90" cy="91" rx="9" ry="7" fill="#c8a882"/>
+          <!-- Head -->
+          <ellipse cx="90" cy="74" rx="16" ry="19" fill="#c8a882"/>
+          <!-- Hair — ninja long black -->
+          <ellipse cx="90" cy="56" rx="16" ry="11" fill="#0f0820"/>
+          <rect x="80" y="55" width="20" height="26" rx="4" fill="#0f0820" opacity="0.6"/>
+          <path d="M106 66 Q112 80 108 100" stroke="#0f0820" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <!-- Eyes — narrow -->
+          <ellipse cx="83" cy="76" rx="4" ry="2.5" fill="#fff"/>
+          <ellipse cx="97" cy="76" rx="4" ry="2.5" fill="#fff"/>
+          <ellipse cx="84" cy="76" rx="2.5" ry="2" fill="#0f0820"/>
+          <ellipse cx="98" cy="76" rx="2.5" ry="2" fill="#0f0820"/>
+          <path d="M79 73 Q83 71 87 73" stroke="#0f0820" stroke-width="2" fill="none"/>
+          <path d="M93 73 Q97 71 101 73" stroke="#0f0820" stroke-width="2" fill="none"/>
+          <path d="M86 83 Q90 85 94 83" stroke="#8b5a3a" stroke-width="1.5" fill="none"/>
+          <!-- Headband -->
+          <rect x="74" y="64" width="32" height="6" rx="2" fill="#8e44ad"/>
+          <!-- Purple glow -->
+          <ellipse cx="90" cy="185" rx="46" ry="13" fill="#8e44ad" opacity="0.12"/>
+        </svg>
+      </div>
+      <div class="cls-name">Ninja</div>
+      <div class="cls-desc">Hızlı ve ölümcül. Yüksek kritik ve kaçınma şansı.</div>
+      <div class="cls-stat">HP: <span>Orta</span> &nbsp; ATK: <span>Yüksek</span></div>
+    </div>
+
+    <!-- SURA -->
+    <div class="class-card" data-class="sura" onclick="game.startGame('sura')">
+      <div class="cls-portrait">
+        <svg viewBox="0 0 180 200" xmlns="http://www.w3.org/2000/svg" width="180" height="200">
+          <defs>
+            <radialGradient id="sBg" cx="50%" cy="80%" r="60%"><stop offset="0%" stop-color="#2a1005"/><stop offset="100%" stop-color="#0f0603"/></radialGradient>
+            <radialGradient id="sGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#e67e22" stop-opacity="0.4"/><stop offset="100%" stop-color="#e67e22" stop-opacity="0"/></radialGradient>
+          </defs>
+          <rect width="180" height="200" fill="url(#sBg)"/>
+          <ellipse cx="90" cy="175" rx="70" ry="35" fill="url(#sGlow)"/>
+          <ellipse cx="90" cy="188" rx="32" ry="6" fill="rgba(0,0,0,0.5)"/>
+          <!-- Legs -->
+          <rect x="74" y="136" width="14" height="46" rx="5" fill="#1a0a05"/>
+          <rect x="92" y="136" width="14" height="46" rx="5" fill="#1a0a05"/>
+          <rect x="72" y="164" width="18" height="20" rx="4" fill="#0f0603"/>
+          <rect x="90" y="164" width="18" height="20" rx="4" fill="#0f0603"/>
+          <!-- Robe / body -->
+          <ellipse cx="90" cy="118" rx="24" ry="28" fill="#2a1005"/>
+          <ellipse cx="90" cy="108" rx="20" ry="22" fill="#3d1a08"/>
+          <!-- Flame tattoo arm -->
+          <ellipse cx="62" cy="112" rx="9" ry="18" fill="#3d1a08" transform="rotate(-15,62,112)"/>
+          <!-- Magic glowing arm -->
+          <ellipse cx="120" cy="106" rx="9" ry="18" fill="#e67e22" opacity="0.7" transform="rotate(25,120,106)"/>
+          <!-- Flame orb in hand -->
+          <circle cx="132" cy="88" r="14" fill="#e67e22" opacity="0.3"/>
+          <circle cx="132" cy="88" r="9" fill="#f39c12" opacity="0.6"/>
+          <circle cx="132" cy="88" r="5" fill="#fff" opacity="0.8"/>
+          <!-- Belt + rune -->
+          <rect x="70" y="132" width="40" height="8" rx="3" fill="#5a2a05"/>
+          <ellipse cx="90" cy="136" rx="8" ry="7" fill="#c0392b" opacity="0.8"/>
+          <!-- Neck -->
+          <ellipse cx="90" cy="91" rx="9" ry="7" fill="#c8a882"/>
+          <!-- Head -->
+          <ellipse cx="90" cy="74" rx="17" ry="20" fill="#c8a882"/>
+          <!-- Hair — sura spiky red-black -->
+          <ellipse cx="90" cy="56" rx="17" ry="10" fill="#1a0a05"/>
+          <polygon points="90,44 84,60 96,60" fill="#c0392b"/>
+          <polygon points="82,47 76,62 88,62" fill="#8b0000"/>
+          <polygon points="98,47 92,62 104,62" fill="#8b0000"/>
+          <!-- Eyes — intense -->
+          <ellipse cx="83" cy="76" rx="4.5" ry="3.5" fill="#fff"/>
+          <ellipse cx="97" cy="76" rx="4.5" ry="3.5" fill="#fff"/>
+          <ellipse cx="84.5" cy="76" rx="2.8" ry="2.8" fill="#c0392b"/>
+          <ellipse cx="98.5" cy="76" rx="2.8" ry="2.8" fill="#c0392b"/>
+          <path d="M79 71 Q83 69 87 71" stroke="#1a0a05" stroke-width="2.5" fill="none"/>
+          <path d="M93 71 Q97 69 101 71" stroke="#1a0a05" stroke-width="2.5" fill="none"/>
+          <path d="M86 84 Q90 87 94 84" stroke="#8b5a3a" stroke-width="1.5" fill="none"/>
+          <!-- Scar across eye -->
+          <path d="M81 73 L85 80" stroke="#8b0000" stroke-width="1.5" fill="none"/>
+          <!-- Fire particles -->
+          <circle cx="128" cy="78" r="3" fill="#f39c12" opacity="0.7"/>
+          <circle cx="138" cy="82" r="2" fill="#e74c3c" opacity="0.6"/>
+          <circle cx="134" cy="74" r="2.5" fill="#f1c40f" opacity="0.5"/>
+          <!-- Orange glow floor -->
+          <ellipse cx="90" cy="185" rx="46" ry="14" fill="#e67e22" opacity="0.15"/>
+        </svg>
+      </div>
+      <div class="cls-name">Sura</div>
+      <div class="cls-desc">Büyü ve kılıç ustası. Karanlık güçlerle hasar verir.</div>
+      <div class="cls-stat">HP: <span>Orta</span> &nbsp; MP: <span>Yüksek</span></div>
+    </div>
+
+    <!-- ŞAMAN -->
+    <div class="class-card" data-class="shaman" onclick="game.startGame('shaman')">
+      <div class="cls-portrait">
+        <svg viewBox="0 0 180 200" xmlns="http://www.w3.org/2000/svg" width="180" height="200">
+          <defs>
+            <radialGradient id="shBg" cx="50%" cy="80%" r="60%"><stop offset="0%" stop-color="#062010"/><stop offset="100%" stop-color="#030c08"/></radialGradient>
+            <radialGradient id="shGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#27ae60" stop-opacity="0.35"/><stop offset="100%" stop-color="#27ae60" stop-opacity="0"/></radialGradient>
+          </defs>
+          <rect width="180" height="200" fill="url(#shBg)"/>
+          <ellipse cx="90" cy="175" rx="70" ry="35" fill="url(#shGlow)"/>
+          <ellipse cx="90" cy="188" rx="32" ry="6" fill="rgba(0,0,0,0.5)"/>
+          <!-- Robe legs -->
+          <path d="M76 136 Q72 170 70 188 L90 188 L90 136Z" fill="#0a2a18"/>
+          <path d="M104 136 Q108 170 110 188 L90 188 L90 136Z" fill="#0a2a18"/>
+          <!-- Robe body -->
+          <ellipse cx="90" cy="115" rx="26" ry="30" fill="#0a2a18"/>
+          <ellipse cx="90" cy="106" rx="21" ry="23" fill="#0e3822"/>
+          <!-- Robe trim gold -->
+          <path d="M68 130 Q90 136 112 130" stroke="#c9a84c" stroke-width="2" fill="none"/>
+          <path d="M72 118 Q90 124 108 118" stroke="#c9a84c" stroke-width="1.5" fill="none" opacity="0.5"/>
+          <!-- Staff arm -->
+          <ellipse cx="62" cy="108" rx="8" ry="18" fill="#0e3822" transform="rotate(-10,62,108)"/>
+          <!-- Staff -->
+          <rect x="44" y="48" width="6" height="110" rx="3" fill="#8b6914"/>
+          <circle cx="47" cy="50" r="12" fill="#27ae60" opacity="0.3"/>
+          <circle cx="47" cy="50" r="8" fill="#2ecc71" opacity="0.5"/>
+          <circle cx="47" cy="50" r="5" fill="#fff" opacity="0.7"/>
+          <!-- Lightning -->
+          <path d="M47 40 L42 52 L48 52 L44 64" stroke="#f1c40f" stroke-width="1.5" fill="none" opacity="0.7"/>
+          <!-- Right arm -->
+          <ellipse cx="120" cy="114" rx="8" ry="18" fill="#0e3822" transform="rotate(10,120,114)"/>
+          <!-- Belt -->
+          <rect x="70" y="130" width="40" height="7" rx="3" fill="#1a5a2e"/>
+          <!-- Neck -->
+          <ellipse cx="90" cy="90" rx="9" ry="7" fill="#d4b896"/>
+          <!-- Head -->
+          <ellipse cx="90" cy="73" rx="17" ry="20" fill="#d4b896"/>
+          <!-- Hair — shaman long white/silver -->
+          <ellipse cx="90" cy="55" rx="17" ry="10" fill="#c0c0c0"/>
+          <path d="M74 62 Q68 80 70 100" stroke="#c0c0c0" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <path d="M106 62 Q112 80 110 100" stroke="#c0c0c0" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <!-- Headpiece -->
+          <path d="M78 56 Q90 44 102 56" stroke="#c9a84c" stroke-width="2" fill="none"/>
+          <circle cx="90" cy="48" r="5" fill="#27ae60" opacity="0.9"/>
+          <!-- Eyes — serene -->
+          <ellipse cx="83" cy="75" rx="4" ry="3" fill="#fff"/>
+          <ellipse cx="97" cy="75" rx="4" ry="3" fill="#fff"/>
+          <ellipse cx="84" cy="75" rx="2.5" ry="2.5" fill="#1a4a2e"/>
+          <ellipse cx="98" cy="75" rx="2.5" ry="2.5" fill="#1a4a2e"/>
+          <path d="M79 72 Q83 70 87 72" stroke="#6a4a2a" stroke-width="1.5" fill="none"/>
+          <path d="M93 72 Q97 70 101 72" stroke="#6a4a2a" stroke-width="1.5" fill="none"/>
+          <path d="M86 84 Q90 87 94 84" stroke="#8b6a4a" stroke-width="1.5" fill="none"/>
+          <!-- Sparkles -->
+          <circle cx="128" cy="94" r="2" fill="#2ecc71" opacity="0.7"/>
+          <circle cx="122" cy="86" r="1.5" fill="#27ae60" opacity="0.5"/>
+          <circle cx="133" cy="86" r="2" fill="#f1c40f" opacity="0.5"/>
+          <!-- Green glow floor -->
+          <ellipse cx="90" cy="185" rx="46" ry="14" fill="#27ae60" opacity="0.12"/>
+        </svg>
+      </div>
+      <div class="cls-name">Şaman</div>
+      <div class="cls-desc">Destek ve büyü sınıfı. İyileştirme ve güçlendirme uzmanı.</div>
+      <div class="cls-stat">HP: <span>Düşük</span> &nbsp; MP: <span>Çok Yüksek</span></div>
+    </div>
+
+  </div>
+
+  <div class="cs-footer">
+    <div class="cs-info-box">
+      <div class="info-icon">🛡</div>
+      <span><strong>PvE</strong> için dengeli karakterler</span>
+    </div>
+    <div class="cs-info-box">
+      <div class="info-icon">👥</div>
+      <span><strong>4 sınıf</strong> ile oyuna başlayabilirsiniz</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Background particle system for class select
+(function() {
+  function initBgParticles() {
+    const canvas = document.getElementById('bgParticles');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const pts = Array.from({length: 60}, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: 0.5 + Math.random() * 1.5,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: -0.2 - Math.random() * 0.4,
+      alpha: 0.1 + Math.random() * 0.4,
+      color: Math.random() > 0.5 ? '#c9a84c' : '#e74c3c'
+    }));
+    function draw() {
+      if (!document.getElementById('bgParticles')) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      pts.forEach(p => {
+        p.x += p.vx; p.y += p.vy;
+        if (p.y < -4) { p.y = canvas.height + 4; p.x = Math.random() * canvas.width; }
+        ctx.globalAlpha = p.alpha;
+        ctx.fillStyle   = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(draw);
+    }
+    draw();
+  }
+  window.addEventListener('DOMContentLoaded', initBgParticles);
+})();
+</script>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- GAME WRAPPER                                    -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="gameWrapper">
+
+  <!-- TOP HUD -->
+  <div id="topHud">
+    <div class="hud-char">
+      <div id="lvlDisplay">Lv.1</div>
+    </div>
+    <div class="bars-group">
+      <div class="bar-row">
+        <span class="bar-label">HP</span>
+        <div class="bar-track">
+          <div class="bar-fill" id="hpFill" style="width:100%"></div>
+          <div class="bar-text" id="hpText">100/100</div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">MP</span>
+        <div class="bar-track">
+          <div class="bar-fill" id="mpFill" style="width:100%"></div>
+          <div class="bar-text" id="mpText">60/60</div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">XP</span>
+        <div class="bar-track">
+          <div class="bar-fill" id="xpFill" style="width:0%"></div>
+          <div class="bar-text" id="xpText">0/100</div>
+        </div>
+      </div>
+    </div>
+    <div id="yangDisplay">0 Yang</div>
+    <div id="mapName">Köy</div>
+  </div>
+
+  <!-- MIDDLE ROW: canvas + side panel -->
+  <div id="middleRow">
+    <canvas id="gameCanvas" width="800" height="500"></canvas>
+
+    <div id="sidePanel">
+      <div class="mini-label">🗺 Harita</div>
+      <canvas id="minimap" width="154" height="110"></canvas>
+
+      <div class="key-hints">
+        <div><span>WASD</span> Hareket</div>
+        <div><span>1/2/3</span> Skill</div>
+        <div><span>H</span> HP İksir</div>
+        <div><span>M</span> MP İksir</div>
+        <div><span>I</span> Envanter</div>
+        <div><span>C</span> Karakter</div>
+        <div><span>F</span> NPC Konuş</div>
+        <div><span>R</span> Yeniden doğ</div>
+      </div>
+
+      <div id="npcPanel"></div>
+    </div>
+  </div>
+
+  <!-- BOTTOM HUD -->
+  <div id="bottomHud">
+    <div id="msgBox"></div>
+    <div id="skillBar">
+      <button class="skill-btn" id="skill0">
+        <span class="sk-name">—</span>
+        <span class="sk-key">1</span>
+        <span class="sk-mp">0MP</span>
+        <span class="cd-text"></span>
+      </button>
+      <button class="skill-btn" id="skill1">
+        <span class="sk-name">—</span>
+        <span class="sk-key">2</span>
+        <span class="sk-mp">0MP</span>
+        <span class="cd-text"></span>
+      </button>
+      <button class="skill-btn" id="skill2">
+        <span class="sk-name">—</span>
+        <span class="sk-key">3</span>
+        <span class="sk-mp">0MP</span>
+        <span class="cd-text"></span>
+      </button>
+      <button class="skill-btn" id="skill3">
+        <span class="sk-name">—</span>
+        <span class="sk-key">4</span>
+        <span class="sk-mp">0MP</span>
+        <span class="cd-text"></span>
+      </button>
+      <button class="skill-btn" id="skill4">
+        <span class="sk-name">—</span>
+        <span class="sk-key">5</span>
+        <span class="sk-mp">0MP</span>
+        <span class="cd-text"></span>
+      </button>
+      <button class="skill-btn" id="skill5">
+        <span class="sk-name">—</span>
+        <span class="sk-key">6</span>
+        <span class="sk-mp">0MP</span>
+        <span class="cd-text"></span>
+      </button>
+    </div>
+  </div>
+
+</div><!-- /gameWrapper -->
+
+<!-- Floating panels -->
+<div class="float-panel" id="invPanel"></div>
+<div class="float-panel" id="statsPanel"></div>
+<div class="float-panel" id="shopPanel"></div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SCRIPTS                                         -->
+<!-- ═══════════════════════════════════════════════ -->
+<script src="js/data.js"></script>
+<script src="js/entities/enemies.js"></script>
+<script src="js/entities/player.js"></script>
+<script src="js/systems/world.js"></script>
+<script src="js/systems/renderer.js"></script>
+<script src="js/ui/hud.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
